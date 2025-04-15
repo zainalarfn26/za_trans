@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Storage;
 
 class CarsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $cars = Cars::paginate(10);
+        $query = Cars::query();
+    
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $cars = $query->paginate(10);
         return view('admin.cars.index', compact('cars'));
     }
 
@@ -85,4 +91,5 @@ class CarsController extends Controller
 
         return redirect()->route('admin.cars.index')->with('success', 'Mobil berhasil dihapus!');
     }
+
 }

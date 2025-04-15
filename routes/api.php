@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\CarsController;
+use App\Http\Controllers\User\BookingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    // Mobil untuk dipilih user
+    Route::get('/cars', [User\CarsController::class, 'index']);
+    Route::get('/cars/{id}', [User\CarsController::class, 'show']);
+
+    // Proses booking
+    Route::post('/bookings', [User\BookingsController::class, 'store']);
+    
     return $request->user();
 });

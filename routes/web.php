@@ -21,12 +21,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
         Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
         Route::resource('/cars', App\Http\Controllers\Admin\CarsController::class);
-    });    
+    });
+    
 
     Route::prefix('user')->name('user.')->middleware('role:user')->group(function () {
         Route::get('/dashboard', [UserDashboard::class, 'index'])->name('dashboard');
     });
-
 });
 
 require __DIR__.'/auth.php';
